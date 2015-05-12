@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 #include "stdafx.h"
-#include <Bootstrapper.h>
-#include <Prerequisites.h>
+#include <C:\Program Files (x86)\SharpSetup\Include\Bootstrapper.h>
+#include <C:\Program Files (x86)\SharpSetup\Include\Prerequisites.h>
 
 using namespace SharpSetup;
 using namespace std;

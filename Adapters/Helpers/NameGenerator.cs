@@ -46,12 +46,13 @@ namespace Reply.Cluster.Mercury.Adapters.Helpers
         MONTH,
         DAY,
         HOUR,
-        MINUTE
+        MINUTE,
+        PROP
     };
 
     public class NameGenerator
     {
-        Regex rx = new Regex("%(?<parameter>.*?)%");
+        Regex rx = new Regex("%(?<parameter>.*?)(?<value>#.*?)*%");
             
         protected static string GetTZD(DateTime time)
         {
@@ -76,7 +77,7 @@ namespace Reply.Cluster.Mercury.Adapters.Helpers
             return tzd.ToString();
         }
 
-        private string EvaluateMacro(Macros macro, string parameter)
+        private string EvaluateMacro(Macros macro, string value)
         {
             switch (macro)
             {
@@ -162,6 +163,15 @@ namespace Reply.Cluster.Mercury.Adapters.Helpers
                     {
                         return DateTime.Now.ToString("HHmmss");
                     }
+                case Macros.PROP:
+                    {
+                        object propValue;
+                        if (innerMsg.Properties.TryGetValue(value, out propValue))
+                        {
+                            return propValue.ToString();
+                        }
+                        return string.Empty;
+                    }
                 default:
                     {
                         throw new ArgumentException(string.Format("Macro '{0}' not available", macro), "macro");
@@ -222,12 +232,13 @@ namespace Reply.Cluster.Mercury.Adapters.Helpers
             foreach (Match match in rx.Matches(currentName))
             {
                 string parameter = match.Groups["parameter"].Value;
+                string value = match.Groups.Count > 1 ? match.Groups["value"].Value.ToUpper() : string.Empty;
                 Macros macro;
 
                 if (Enum.TryParse(parameter.ToUpper(), out macro))
                 {
-                    string substitution = EvaluateMacro(macro, parameter);
-                    currentName = currentName.Replace("%" + parameter + "%", substitution);
+                    string substitution = EvaluateMacro(macro, value.Replace("#", ""));
+                    currentName = currentName.Replace("%" + string.Concat(parameter, value) + "%", substitution);
                 }
             }
 
