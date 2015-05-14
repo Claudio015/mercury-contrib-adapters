@@ -52,7 +52,7 @@ namespace Reply.Cluster.Mercury.Adapters.Helpers
 
     public class NameGenerator
     {
-        Regex rx = new Regex("%(?<parameter>.*?)(?<value>#.*?)*%");
+        Regex rx = new Regex("%(?<parameter>.*?)(?<value>:.*?)*%");
             
         protected static string GetTZD(DateTime time)
         {
@@ -237,7 +237,7 @@ namespace Reply.Cluster.Mercury.Adapters.Helpers
 
                 if (Enum.TryParse(parameter.ToUpper(), out macro))
                 {
-                    string substitution = EvaluateMacro(macro, value.Replace("#", ""));
+                    string substitution = EvaluateMacro(macro, value.Replace(":", ""));
                     currentName = currentName.Replace("%" + string.Concat(parameter, value) + "%", substitution);
                 }
             }

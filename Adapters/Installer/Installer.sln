@@ -1,30 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gui", "Gui\Gui.csproj", "{534CAD81-2E6C-4403-8565-9D13C005CC80}"
-	ProjectSection(ProjectDependencies) = postProject
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA} = {27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}
-	EndProjectSection
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Package", "Package\Package.wixproj", "{53D1529B-5DE1-4327-8805-0B9D848F1654}"
 	ProjectSection(ProjectDependencies) = postProject
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA} = {27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}
 		{534CAD81-2E6C-4403-8565-9D13C005CC80} = {534CAD81-2E6C-4403-8565-9D13C005CC80}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembler", "Assembler\Assembler.csproj", "{C1A02676-3D58-4E90-8047-7DF638A749D5}"
 	ProjectSection(ProjectDependencies) = postProject
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA} = {27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}
 		{C919F079-C23A-4C29-B609-38E5AEB0C13B} = {C919F079-C23A-4C29-B609-38E5AEB0C13B}
 		{534CAD81-2E6C-4403-8565-9D13C005CC80} = {534CAD81-2E6C-4403-8565-9D13C005CC80}
 		{53D1529B-5DE1-4327-8805-0B9D848F1654} = {53D1529B-5DE1-4327-8805-0B9D848F1654}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntermediateBootstrapper", "IntermediateBootstrapper\IntermediateBootstrapper.vcxproj", "{C919F079-C23A-4C29-B609-38E5AEB0C13B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Translation", "Translation\Translation.csproj", "{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{7D6173D3-D165-46BE-AEEA-501239398E5A}"
 EndProject
@@ -121,18 +114,6 @@ Global
 		{C919F079-C23A-4C29-B609-38E5AEB0C13B}.Release|Win32.Build.0 = Release|Win32
 		{C919F079-C23A-4C29-B609-38E5AEB0C13B}.Release|x86.ActiveCfg = Release|Win32
 		{C919F079-C23A-4C29-B609-38E5AEB0C13B}.Release|x86.Build.0 = Release|Win32
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Release|Win32.ActiveCfg = Release|Any CPU
-		{27AF6A0E-E08A-42F7-97C4-F98B197AF3BA}.Release|x86.ActiveCfg = Release|Any CPU
 		{6B46A1EC-FD51-4F40-B325-7401DEB3F37B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B46A1EC-FD51-4F40-B325-7401DEB3F37B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B46A1EC-FD51-4F40-B325-7401DEB3F37B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
