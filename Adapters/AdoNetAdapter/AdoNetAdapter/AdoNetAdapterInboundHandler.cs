@@ -157,6 +157,8 @@ namespace Reply.Cluster.Mercury.Adapters.AdoNet
             {
                 using (var connection = Connection.CreateDbConnection())
                 {
+                    connection.Open();
+
                     var dataAvailableCommand = connection.CreateCommand();
                     dataAvailableCommand.CommandText = dataAvailableStatement;
 
