@@ -32,6 +32,7 @@ using System.Threading;
 using System.IO;
 using System.ServiceModel.Channels;
 using Reply.Cluster.Mercury.Adapters.Helpers;
+using System.Linq;
 #endregion
 
 namespace Reply.Cluster.Mercury.Adapters.File
@@ -105,6 +106,11 @@ namespace Reply.Cluster.Mercury.Adapters.File
 
                 if (pollingType == PollingType.Event)
                     watcher.EnableRaisingEvents = true;
+
+                if (queue == null)
+                {
+                    queue = new BlockingCollection<FileItem>();
+                }
             }
             else
                 ScheduleHelper.RegisterEvent(scheduleName, () => GetFiles());
@@ -121,11 +127,13 @@ namespace Reply.Cluster.Mercury.Adapters.File
 
                 if (pollingType == PollingType.Event)
                     watcher.EnableRaisingEvents = false;
+
             }
             else
                 ScheduleHelper.CancelEvent(scheduleName);
 
             queue.CompleteAdding();
+            queue = null;
             cancelSource.Cancel();
         }
 
@@ -180,7 +188,8 @@ namespace Reply.Cluster.Mercury.Adapters.File
 
         private void GetFiles()
         {
-            var files = Directory.GetFiles(connectionUri.Path, connectionUri.FileName);
+            var files = new DirectoryInfo(connectionUri.Path).GetFiles(connectionUri.FileName).OrderBy(f => f.CreationTime).Select(f => f.FullName);
+            //var files = Directory.GetFiles(connectionUri.Path, connectionUri.FileName);
 
             foreach (string file in files)
                 AddFileToQueue(file);
@@ -234,7 +243,10 @@ namespace Reply.Cluster.Mercury.Adapters.File
         public override void Reply(System.ServiceModel.Channels.Message message
             , TimeSpan timeout)
         {
-            System.IO.File.Delete(path);
+            if (!message.IsFault)
+            {
+                System.IO.File.Delete(path);
+            }
             stream.Close();
         }
 

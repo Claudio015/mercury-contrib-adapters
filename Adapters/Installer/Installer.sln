@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gui", "Gui\Gui.csproj", "{534CAD81-2E6C-4403-8565-9D13C005CC80}"
 EndProject
@@ -48,9 +48,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleAdapter.Messages", "..\ScheduleAdapter\ScheduleAdapter.Messages\ScheduleAdapter.Messages.csproj", "{406D02F5-8E72-4F74-8F0B-6CB0F6BF63D4}"
 EndProject
 Global
-	GlobalSection(SharpSetup) = preSolution
-		Version = 2.0
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
