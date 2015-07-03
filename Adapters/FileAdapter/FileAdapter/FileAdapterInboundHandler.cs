@@ -51,6 +51,8 @@ namespace Reply.Cluster.Mercury.Adapters.File
             public FileStream Stream { get; private set; }
         }
 
+        private FileItem lastFileItem;
+
         /// <summary>
         /// Initializes a new instance of the FileAdapterInboundHandler class
         /// </summary>
@@ -106,11 +108,6 @@ namespace Reply.Cluster.Mercury.Adapters.File
 
                 if (pollingType == PollingType.Event)
                     watcher.EnableRaisingEvents = true;
-
-                if (queue == null)
-                {
-                    queue = new BlockingCollection<FileItem>();
-                }
             }
             else
                 ScheduleHelper.RegisterEvent(scheduleName, () => GetFiles());
@@ -133,8 +130,18 @@ namespace Reply.Cluster.Mercury.Adapters.File
                 ScheduleHelper.CancelEvent(scheduleName);
 
             queue.CompleteAdding();
-            queue = null;
             cancelSource.Cancel();
+
+            if (lastFileItem != null)
+            {
+                lastFileItem.Stream.Close();
+            }
+
+            while (!queue.IsCompleted)
+            {
+                FileItem f = queue.Take();
+                f.Stream.Close();
+            }
         }
 
         /// <summary>
@@ -148,15 +155,15 @@ namespace Reply.Cluster.Mercury.Adapters.File
             if (queue.IsCompleted)
                 return false;
 
-            FileItem item = null;
-            bool result = queue.TryTake(out item, (int)Math.Min(timeout.TotalMilliseconds, (long)int.MaxValue), cancelSource.Token);
+            lastFileItem = null;
+            bool result = queue.TryTake(out lastFileItem, (int)Math.Min(timeout.TotalMilliseconds, (long)int.MaxValue), cancelSource.Token);
 
             if (result)
             {
-                message = ByteStreamMessage.CreateMessage(item.Stream);
-                message.Headers.Action = new UriBuilder(item.Path).Uri.ToString();
+                message = ByteStreamMessage.CreateMessage(lastFileItem.Stream);
+                message.Headers.Action = new UriBuilder(lastFileItem.Path).Uri.ToString();
 
-                reply = new FileAdapterInboundReply(item.Path, item.Stream);
+                reply = new FileAdapterInboundReply(lastFileItem.Path, lastFileItem.Stream);
             }
 
             return result;
