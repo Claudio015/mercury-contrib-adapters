@@ -267,7 +267,10 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
         public override void Reply(System.ServiceModel.Channels.Message message
             , TimeSpan timeout)
         {
-            client.DeleteFile(path);
+            if (!message.IsFault)
+            {
+                client.DeleteFile(path);
+            }
             stream.Close();
         }
         

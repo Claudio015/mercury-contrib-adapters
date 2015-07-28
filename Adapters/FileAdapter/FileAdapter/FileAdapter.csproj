@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F49A28D2-7B38-40DD-8D25-074EDD763886}</ProjectGuid>
+    <ProjectGuid>{2C013558-4FA7-4CEF-9A09-F894ED4C523D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Reply.Cluster.Mercury.Adapters.File</RootNamespace>
