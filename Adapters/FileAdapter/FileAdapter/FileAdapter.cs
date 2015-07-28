@@ -77,6 +77,8 @@ namespace Reply.Cluster.Mercury.Adapters.File
 
         private OverwriteAction overwriteAction;
 
+        private bool includeSubfolders;
+
         #endregion Custom Generated Fields
 
         #region  Constructor
@@ -103,6 +105,7 @@ namespace Reply.Cluster.Mercury.Adapters.File
             this.RemoteBackup = binding.RemoteBackup;
             this.LocalBackup = binding.LocalBackup;
             this.OverwriteAction = binding.OverwriteAction;
+            this.IncludeSubfolders = binding.IncludeSubfolders;
         }
 
         #endregion Constructor
@@ -210,6 +213,20 @@ namespace Reply.Cluster.Mercury.Adapters.File
             set
             {
                 this.overwriteAction = value;
+            }
+        }
+
+        [System.ComponentModel.Category("Folders")]
+        [System.Configuration.ConfigurationProperty("includeSubfolders", DefaultValue = false)]
+        public bool IncludeSubfolders
+        {
+            get
+            {
+                return this.includeSubfolders;
+            }
+            set
+            {
+                this.includeSubfolders = value;
             }
         }
 

@@ -186,6 +186,20 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
             }
         }
 
+        [System.ComponentModel.Category("Folder")]
+        [System.Configuration.ConfigurationProperty("SubFolders", DefaultValue = "")]
+        public string SubFolders
+        {
+            get
+            {
+                return ((string)(base["SubFolders"]));
+            }
+            set
+            {
+                base["SubFolders"] = value;
+            }
+        }
+
         #endregion Custom Generated Properties
 
         #region BindingElementExtensionElement Methods
@@ -246,6 +260,7 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
             adapterBinding.LocalBackup = (System.String)this["LocalBackup"];
             adapterBinding.OverwriteAction = (OverwriteAction)this["OverwriteAction"];
             adapterBinding.ZipFile = (System.Boolean)this["ZipFile"];
+            adapterBinding.SubFolders = (System.String)this["SubFolders"];
         }
 
         /// <summary>
@@ -264,6 +279,7 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
             this["LocalBackup"] = adapterBinding.LocalBackup;
             this["OverwriteAction"] = adapterBinding.OverwriteAction;
             this["ZipFile"] = adapterBinding.ZipFile;
+            this["SubFolders"] = adapterBinding.SubFolders;
         }
 
         /// <summary>
@@ -282,6 +298,7 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
             this["LocalBackup"] = adapterBinding.LocalBackup;
             this["OverwriteAction"] = adapterBinding.OverwriteAction;
             this["ZipFile"] = adapterBinding.ZipFile;
+            this["SubFolders"] = adapterBinding.SubFolders;
         }
 
         #endregion BindingElementExtensionElement Methods

@@ -167,6 +167,20 @@ namespace Reply.Cluster.Mercury.Adapters.File
             }
         }
 
+        [System.ComponentModel.Category("IncludeSubfolders")]
+        [System.Configuration.ConfigurationProperty("includeSubfolders", DefaultValue = false)]
+        public bool IncludeSubfolders
+        {
+            get
+            {
+                return ((bool)(base["IncludeSubfolders"]));
+            }
+            set
+            {
+                base["IncludeSubfolders"] = value;
+            }
+        }
+
         #endregion Custom Generated Properties
 
         #region Protected Properties
@@ -200,6 +214,7 @@ namespace Reply.Cluster.Mercury.Adapters.File
             this["RemoteBackup"] = adapterBinding.RemoteBackup;
             this["LocalBackup"] = adapterBinding.LocalBackup;
             this["OverwriteAction"] = adapterBinding.OverwriteAction;
+            this["IncludeSubfolders"] = adapterBinding.IncludeSubfolders;
         }
 
         /// <summary>
@@ -218,6 +233,7 @@ namespace Reply.Cluster.Mercury.Adapters.File
             adapterBinding.RemoteBackup = (System.String)this["RemoteBackup"];
             adapterBinding.LocalBackup = (System.String)this["LocalBackup"];
             adapterBinding.OverwriteAction = (OverwriteAction)this["OverwriteAction"];
+            adapterBinding.IncludeSubfolders = (bool)this["IncludeSubfolders"];
         }
 
         /// <summary>
@@ -237,6 +253,7 @@ namespace Reply.Cluster.Mercury.Adapters.File
                     configProperties.Add(new ConfigurationProperty("RemoteBackup", typeof(System.String), null, null, null, ConfigurationPropertyOptions.None));
                     configProperties.Add(new ConfigurationProperty("LocalBackup", typeof(System.String), null, null, null, ConfigurationPropertyOptions.None));
                     configProperties.Add(new ConfigurationProperty("OverwriteAction", typeof(OverwriteAction), OverwriteAction.None, null, null, ConfigurationPropertyOptions.None));
+                    configProperties.Add(new ConfigurationProperty("IncludeSubfolders", typeof(bool), false, null, null, ConfigurationPropertyOptions.None));
                     this.properties = configProperties;
                 }
                 return this.properties;

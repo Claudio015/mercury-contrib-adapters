@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FtpAdapter", "FtpAdapter\FtpAdapter.csproj", "{F49A28D2-7B38-40DD-8D25-074EDD763886}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FtpAdapter", "FtpAdapter\FtpAdapter.csproj", "{0DA8520D-D161-40AB-9BE5-22B8A9503379}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FtpAdapter.Tests", "FtpAdapter.Tests\FtpAdapter.Tests.csproj", "{09BF3703-067E-4565-A568-20AF8C19F857}"
 EndProject
@@ -19,10 +19,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F49A28D2-7B38-40DD-8D25-074EDD763886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F49A28D2-7B38-40DD-8D25-074EDD763886}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F49A28D2-7B38-40DD-8D25-074EDD763886}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F49A28D2-7B38-40DD-8D25-074EDD763886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DA8520D-D161-40AB-9BE5-22B8A9503379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DA8520D-D161-40AB-9BE5-22B8A9503379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DA8520D-D161-40AB-9BE5-22B8A9503379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DA8520D-D161-40AB-9BE5-22B8A9503379}.Release|Any CPU.Build.0 = Release|Any CPU
 		{09BF3703-067E-4565-A568-20AF8C19F857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{09BF3703-067E-4565-A568-20AF8C19F857}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09BF3703-067E-4565-A568-20AF8C19F857}.Release|Any CPU.ActiveCfg = Release|Any CPU

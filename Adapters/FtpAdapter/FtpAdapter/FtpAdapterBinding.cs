@@ -100,6 +100,8 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
 
         private bool zipFile;
 
+        private string subFolders;
+
         #endregion Custom Generated Fields
 
         #region Public Properties
@@ -281,6 +283,19 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
             }
         }
 
+        [System.Configuration.ConfigurationProperty("SubFolders")]
+        public string SubFolders
+        {
+            get
+            {
+                return this.subFolders;
+            }
+            set
+            {
+                this.subFolders = value;
+            }
+        }
+
         #endregion Custom Generated Properties
 
         #region Private Properties
@@ -299,6 +314,7 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
                 binding.LocalBackup = this.LocalBackup;
                 binding.OverwriteAction = this.OverwriteAction;
                 binding.ZipFile = this.ZipFile;
+                binding.SubFolders = this.SubFolders;
                 return binding;
             }
         }

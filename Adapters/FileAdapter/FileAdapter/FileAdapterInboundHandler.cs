@@ -69,10 +69,12 @@ namespace Reply.Cluster.Mercury.Adapters.File
                 if (pollingType == PollingType.Event)
                 {
                     watcher = new FileSystemWatcher(connectionUri.Path, connectionUri.FileName);
+                    watcher.IncludeSubdirectories = connection.ConnectionFactory.Adapter.IncludeSubfolders;
                     watcher.Changed += FileEvent;
                 }
 
                 pollingInterval = connection.ConnectionFactory.Adapter.PollingInterval;
+                includeSubfolders = connection.ConnectionFactory.Adapter.IncludeSubfolders;
                 pollingTimer = new Timer(new TimerCallback(t => GetFiles()));
             }
             else
@@ -89,6 +91,8 @@ namespace Reply.Cluster.Mercury.Adapters.File
         private int pollingInterval;
         private Timer pollingTimer;
         private string scheduleName;
+
+        private bool includeSubfolders;
 
         private BlockingCollection<FileItem> queue = new BlockingCollection<FileItem>();
         private CancellationTokenSource cancelSource = new CancellationTokenSource();
@@ -195,7 +199,8 @@ namespace Reply.Cluster.Mercury.Adapters.File
 
         private void GetFiles()
         {
-            var files = new DirectoryInfo(connectionUri.Path).GetFiles(connectionUri.FileName).OrderBy(f => f.CreationTime).Select(f => f.FullName);
+            SearchOption so = includeSubfolders ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            var files = new DirectoryInfo(connectionUri.Path).GetFiles(connectionUri.FileName, so).OrderBy(f => f.CreationTime).Select(f => f.FullName);
             //var files = Directory.GetFiles(connectionUri.Path, connectionUri.FileName);
 
             foreach (string file in files)

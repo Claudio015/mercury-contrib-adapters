@@ -73,6 +73,20 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
             }
             else
                 scheduleName = connection.ConnectionFactory.Adapter.ScheduleName;
+
+            subFolders = new List<string>();
+            if (string.IsNullOrEmpty(connection.ConnectionFactory.Adapter.SubFolders))
+            {
+                subFolders.Add(connectionUri.Path);
+            }
+            else
+            {
+                foreach (var item in connection.ConnectionFactory.Adapter.SubFolders.Split(';'))
+                {
+                    subFolders.Add(string.Concat(connectionUri.Path, "/", item));
+                }
+            }
+            
         }
 
         #region Private Fields
@@ -88,6 +102,8 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
 
         private BlockingCollection<FileItem> queue = new BlockingCollection<FileItem>();
         private CancellationTokenSource cancelSource = new CancellationTokenSource();
+
+        private List<string> subFolders;
 
         #endregion Private Fields
 
@@ -161,21 +177,63 @@ namespace Reply.Cluster.Mercury.Adapters.Ftp
         {
             var client = Connection.Client;
 
-            var files = client.GetListing(connectionUri.Path);
+            List<Tuple<DateTime, FileItem>> totalFiles = new List<Tuple<DateTime, FileItem>>();
 
-            foreach (var file in files)
-                if (filter.IsMatch(file.Name))
+            foreach (var folder in subFolders)
+            {
+                var files = client.GetListing(folder);
+
+                foreach (var file in files)
                 {
-                    string path = file.FullName;
-
-                    try
+                    if (filter.IsMatch(file.Name))
                     {
-                        var stream = client.OpenRead(path);
+                        string path = file.FullName;
 
-                        queue.Add(new FileItem(client, path, stream));
+                        try
+                        {
+                            var stream = client.OpenRead(path);
+                            DateTime modDate = client.GetModifiedTime(path);
+                            totalFiles.Add(new Tuple<DateTime, FileItem>(modDate, new FileItem(client, path, stream)));
+                        }
+                        catch (FtpException) { }
                     }
-                    catch (FtpException) { }
                 }
+            }
+            totalFiles.Sort(new Comparison<Tuple<DateTime, FileItem>>((t1, t2) => 
+            { 
+                long diff = t1.Item1.Ticks - t2.Item1.Ticks;
+                if (diff < 0)
+                {
+                    return -1;
+                }
+                if (diff > 0)
+                {
+                    return 1;
+                }
+                return 0;
+            }));
+            foreach (var item in totalFiles)
+            {
+                queue.Add(item.Item2);
+            }
+
+            //var files = client.GetListing(connectionUri.Path);
+
+            //foreach (var file in files)
+            //{
+            //    if (filter.IsMatch(file.Name))
+            //    {
+            //        string path = file.FullName;
+
+            //        try
+            //        {
+            //            var stream = client.OpenRead(path);
+
+            //            queue.Add(new FileItem(client, path, stream));
+            //        }
+            //        catch (FtpException) { }
+            //    }
+            //}
         }
 
         #endregion
