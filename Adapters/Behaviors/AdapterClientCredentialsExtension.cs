@@ -40,7 +40,6 @@ namespace Reply.Cluster.Mercury.Adapters.Behaviors
 
         protected override object CreateBehavior()
         {
-            System.Diagnostics.Debugger.Launch();
             var behavior = new AdapterClientCredentials();
             behavior.UserName.UserName = this.UserName;
             behavior.UserName.Password = this.Password;
